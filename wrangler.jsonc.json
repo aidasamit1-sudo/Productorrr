@@ -1,0 +1,78 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pixelforge-prod",
+  "main": "./src/worker/index.ts",
+  "compatibility_date": "2025-06-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true,
+  "assets": {
+    "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pixelforge-production",
+      "database_id": "your-d1-database-id-here"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "IMAGES_BUCKET",
+      "bucket_name": "pixelforge-images-prod"
+    }
+  ],
+  "vars": {
+    "FRONTEND_URL": "https://pixelforge.com",
+    "API_BASE_URL": "https://api.pixelforge.com",
+    "ENABLE_PAYMENT_PROCESSING": "true",
+    "ENABLE_GOOGLE_IMAGEN": "true",
+    "MAX_IMAGES_PER_GENERATION": "5",
+    "RATE_LIMIT_WINDOW_MS": "900000",
+    "RATE_LIMIT_MAX_REQUESTS": "100",
+    "R2_DOMAIN": "images.pixelforge.com"
+  },
+  "secrets": [
+    "MOCHA_USERS_SERVICE_API_URL",
+    "MOCHA_USERS_SERVICE_API_KEY",
+    "GOOGLE_PROJECT_ID",
+    "GOOGLE_PRIVATE_KEY",
+    "GOOGLE_CLIENT_EMAIL",
+    "GOOGLE_PRIVATE_KEY_ID",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "STRIPE_PUBLISHABLE_KEY",
+    "JWT_SECRET",
+    "ENCRYPTION_KEY",
+    "SENTRY_DSN",
+    "POSTHOG_API_KEY",
+    "SENDGRID_API_KEY",
+    "FROM_EMAIL"
+  ],
+  "build": {
+    "command": "npm run build"
+  },
+  "dev": {
+    "compatibility_date": "2025-06-17",
+    "compatibility_flags": ["nodejs_compat"],
+    "vars": {
+      "FRONTEND_URL": "http://localhost:5173",
+      "API_BASE_URL": "http://localhost:8787",
+      "ENABLE_PAYMENT_PROCESSING": "false",
+      "ENABLE_GOOGLE_IMAGEN": "false",
+      "MAX_IMAGES_PER_GENERATION": "3",
+      "RATE_LIMIT_WINDOW_MS": "60000",
+      "RATE_LIMIT_MAX_REQUESTS": "1000",
+      "R2_DOMAIN": "localhost:8787"
+    }
+  },
+  "triggers": {
+    "crons": [
+      "0 2 * * *"
+    ]
+  },
+  "limits": {
+    "cpu_ms": 30000
+  }
