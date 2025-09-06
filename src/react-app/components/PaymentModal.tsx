@@ -5,6 +5,7 @@ import { CreditCard, X, Loader2 } from 'lucide-react';
 interface PaymentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onSuccess: () => void;
 }
 
@@ -15,7 +16,7 @@ const PAYMENT_PLANS = [
   { amount: 5000, credits: 200, popular: false, bonus: 50 },
 ];
 
-export default function PaymentModal({ isOpen, onClose, onSuccess }: PaymentModalProps) {
+export default function PaymentModal({ isOpen, onClose }: PaymentModalProps) {
   const [selectedPlan, setSelectedPlan] = useState(PAYMENT_PLANS[1]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
