@@ -27,3 +27,4 @@ const GENERATION_TYPES = [
     label: 'Studio', 
     description: 'High-end professional studio photography',
     example: 'Perfect lighting, shadows, and reflections on'
+  }
