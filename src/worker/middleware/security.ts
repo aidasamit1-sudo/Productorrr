@@ -1,9 +1,9 @@
 import { Context, Next } from 'hono';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { z } from 'zod';
 
 export const securityHeaders = async (c: Context, next: Next) => {
   await next();
-  
   // Security headers
   c.header('X-Content-Type-Options', 'nosniff');
   c.header('X-Frame-Options', 'DENY');
@@ -23,7 +23,7 @@ export const validateImageUpload = (maxSize = 10 * 1024 * 1024) => {
     if (contentType?.includes('multipart/form-data')) {
       const formData = await c.req.formData();
       
-      for (const [key, value] of formData.entries()) {
+      for (const [_key, value] of formData.entries()) {
         if (value instanceof File) {
           // Validate file size
           if (value.size > maxSize) {
@@ -54,19 +54,16 @@ function isValidImage(buffer: Uint8Array): boolean {
       buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
     return true;
   }
-  
   // Check JPEG signature
   if (buffer.length >= 2 && buffer[0] === 0xFF && buffer[1] === 0xD8) {
     return true;
   }
-  
   // Check WebP signature
   if (buffer.length >= 12 && 
       buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 &&
       buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) {
     return true;
   }
-  
   return false;
 }
 
@@ -81,11 +78,11 @@ export const rateLimitByUser = () => {
     const windowMs = 15 * 60 * 1000; // 15 minutes
     const maxAttempts = 10; // 10 generations per 15 minutes
     
-    const key = user.id;
-    const record = attempts.get(key);
+    const userId = user.id;
+    const record = attempts.get(userId);
     
     if (!record || now > record.resetTime) {
-      attempts.set(key, { count: 1, resetTime: now + windowMs });
+      attempts.set(userId, { count: 1, resetTime: now + windowMs });
       return await next();
     }
     
