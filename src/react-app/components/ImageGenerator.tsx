@@ -26,4 +26,4 @@ const GENERATION_TYPES = [
     value: 'studio', 
     label: 'Studio', 
     description: 'High-end professional studio photography',
-    example: 'Perfect lighting, shadows, and reflections on
+    example: 'Perfect lighting, shadows, and reflections on'
