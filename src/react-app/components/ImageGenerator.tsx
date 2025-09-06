@@ -28,3 +28,4 @@ const GENERATION_TYPES = [
     description: 'High-end professional studio photography',
     example: 'Perfect lighting, shadows, and reflections on'
   }
+]
